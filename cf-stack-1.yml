@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: EC2-Stack-1
+Resources:
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-0ff8a91507f77f867
+      InstanceType: t2.micro
+      KeyName: linux-key-pair
+      BlockDeviceMappings:
+        - DeviceName: /dev/sdm
+          Ebs:
+            VolumeType: gp2
+            VolumeSize: 20
+            DeleteOnTermination: true
+  
+  MyS3Bucket:
+    Type: 'AWS::S3::Bucket'
+    DependsOn: 'MyEC2Instance'
+    Properties:
+      BucketName: 'nagaraj-s3-bucket-srjons'
